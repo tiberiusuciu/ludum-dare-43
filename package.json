@@ -1,0 +1,25 @@
+{
+  "name": "phaser3_starter_template",
+  "description": "Phaser 3 Starter Template",
+  "version": "0.0.1",
+  "author": "Guillaume Baril",
+  "scripts": {
+    "build": "webpack",
+    "start": "npm run build && webpack-dev-server --port=8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbaril/phaser3_starter_template.git"
+  },
+  "license": "MIT",
+  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
+  "devDependencies": {
+    "raw-loader": "^0.5.1",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "phaser": "^3.15.1"
+  }
+}
