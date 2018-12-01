@@ -46,7 +46,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     update(scene) {
         var left = scene.cursors.left.isDown || scene.wasd.left.isDown;
         var right = scene.cursors.right.isDown || scene.wasd.right.isDown;
-        var up = scene.cursors.up.isDown || scene.wasd.up.isDown;
+        var up = scene.cursors.up.isDown || scene.wasd.up.isDown || scene.cursors.space.isDown;
 
         if (left || right) {
             var direction = right ? 1 : -1;

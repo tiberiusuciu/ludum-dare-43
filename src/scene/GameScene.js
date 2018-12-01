@@ -47,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {
+       // this.scrollingBg.
         this.player.update(this);
     }
 }
