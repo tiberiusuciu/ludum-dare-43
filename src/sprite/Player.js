@@ -36,6 +36,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
             frames: [ { key: key + 'jump', frame: 1 } ],
             frameRate: 20
         });
+
+        scene.cameras.main.startFollow(this);
+        scene.cameras.main.setLerp(0, 0.1);
+        
         console.log(this.body);
     }
 
@@ -43,7 +47,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         if (scene.cursors.left.isDown || scene.cursors.right.isDown) {
             var direction = scene.cursors.right.isDown ? 1 : -1;
 
-            this.body.setVelocityX(160 * direction);
+            this.body.setVelocityX(300 * direction);
             this.flipX = direction != 1;
             this.anims.play('move', true);
         } else {
@@ -51,7 +55,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.anims.play('stop');
         }
 
-        if (scene.cursors.up.isDown && this.body.touching.down) {
+        if (scene.cursors.up.isDown ) {
             this.body.setVelocityY(-1000);
         }
 
