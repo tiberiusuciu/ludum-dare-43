@@ -9,12 +9,12 @@ export default class GameScene extends Phaser.Scene {
 
     preload() {
         this.load.image('building-bg', 'assets/building_background.png');
-        this.load.spritesheet('player', 'assets/character_strip10.png',{ frameWidth: 16, frameHeight: 24 });
+        this.load.spritesheet('player', 'assets/player_strip10.png',{ frameWidth: 16, frameHeight: 24 });
+        this.load.spritesheet('playerjump', 'assets/player_jump_strip2.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.image('metal-platform', 'assets/metal_platform.png');
     }
     
     create() {
-        //this.staticBg = this.add.image(600, 300, 'building-bg');
         this.scrollingBg = this.add.tileSprite(600,300,400,1000,'building-bg');
 
         this.staticBg = this.add.image(100,100,'building-bg');
@@ -27,7 +27,7 @@ export default class GameScene extends Phaser.Scene {
             scene: this,
             key: 'player',
             x: 550,
-            y: 550
+            y: 300
         });
 
         this.add.existing(this.player);
@@ -48,7 +48,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {
-        console.log('update');
         this.scrollingBg.tilePositionY -= 100;
         //this.background1.setTilePosition(this.background1.tilePositionX  - 2);
         this.player.update(this);
