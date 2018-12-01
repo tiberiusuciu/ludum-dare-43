@@ -2,7 +2,7 @@ import 'phaser';
 import GameScene from './scene/GameScene';
 
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     parent: 'content',
     pixelArt: true,
     width: 1200,
