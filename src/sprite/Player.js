@@ -1,3 +1,5 @@
+const SCALE = 7;
+
 export default class Player extends Phaser.GameObjects.Sprite {
     constructor({scene, x, y, key}) {
         super(scene, x, y, key);
@@ -5,7 +7,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         scene.physics.world.enable(this);
 
         this.setTexture(key);
-        this.setScale(3);
+        this.setScale(SCALE);
         this.body.setBounce(0.2);
         this.body.setCollideWorldBounds(false);
         this.body.setGravityY(500);
@@ -32,7 +34,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
             this.body.setVelocityX(160 * direction);
 
-            this.setScale(3 * direction, 3);
+            this.setScale(SCALE * direction, SCALE);
             this.anims.play('move', true);
         } else {
             this.body.setVelocityX(0);
