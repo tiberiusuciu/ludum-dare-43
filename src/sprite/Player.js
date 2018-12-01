@@ -39,13 +39,17 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         scene.cameras.main.startFollow(this);
         scene.cameras.main.setLerp(0, 0.1);
-        
+
         console.log(this.body);
     }
 
     update(scene) {
-        if (scene.cursors.left.isDown || scene.cursors.right.isDown) {
-            var direction = scene.cursors.right.isDown ? 1 : -1;
+        var left = scene.cursors.left.isDown || scene.wasd.left.isDown;
+        var right = scene.cursors.right.isDown || scene.wasd.right.isDown;
+        var up = scene.cursors.up.isDown || scene.wasd.up.isDown;
+
+        if (left || right) {
+            var direction = right ? 1 : -1;
 
             this.body.setVelocityX(300 * direction);
             this.flipX = direction != 1;
@@ -55,7 +59,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.anims.play('stop');
         }
 
-        if (scene.cursors.up.isDown ) {
+        if (up) {
             this.body.setVelocityY(-1000);
         }
 

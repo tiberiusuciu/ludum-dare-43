@@ -29,18 +29,17 @@ export default class GameScene extends Phaser.Scene {
             x: 550,
             y: 300
         });
-
         this.add.existing(this.player);
-        //this.cameras.main.startFollow(this.player);
+
         this.cameras.main.setBackgroundColor("rgb(120, 120, 255)");
 
         this.cursors = this.input.keyboard.createCursorKeys();
-
-        let cam = this.cameras.main
-        // Set its viewport as same as our game dimension
-        cam.setViewport(0,0,1200,600);
-        // Center align the camera to occupy all our game objects
-        cam.centerToBounds();
+        this.wasd = {
+            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+        };
 
         this.physics.add.collider(this.player, this.sol);
 
@@ -48,8 +47,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {
-        this.scrollingBg.tilePositionY -= 100;
-        //this.background1.setTilePosition(this.background1.tilePositionX  - 2);
         this.player.update(this);
     }
 }
