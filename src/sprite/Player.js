@@ -24,8 +24,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
             frames: [ { key: key, frame: 0 } ],
             frameRate: 20
         });
-
-        console.log(this);
     }
 
     update(scene) {
@@ -33,8 +31,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
             var direction = scene.cursors.right.isDown ? 1 : -1;
 
             this.body.setVelocityX(160 * direction);
+            this.flipX = direction != 1;
 
-            this.setScale(SCALE * direction, SCALE);
             this.anims.play('move', true);
         } else {
             this.body.setVelocityX(0);
