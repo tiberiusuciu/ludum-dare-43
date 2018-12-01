@@ -1,6 +1,6 @@
-# Phaser 3 Starter Template
+# Ludum Dare 43
 
-A simple starter template for the game framework Phaser 3.
+Ludum Dare 43 Project made by Tiberius Cristian Suciu and Guillaume Baril.
 
 ## Getting Started
 
@@ -38,7 +38,3 @@ Visit [localhost:8000](http://localhost:8000) to see the result.
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md) file for details.
-
-## Acknowledgments
-
-Inspired by [photonstorm](https://github.com/photonstorm/phaser3-project-template) and [nkholski](https://github.com/nkholski/phaser3-es6-webpack).

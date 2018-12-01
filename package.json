@@ -1,15 +1,10 @@
 {
-  "name": "phaser3_starter_template",
-  "description": "Phaser 3 Starter Template",
+  "name": "ludum-dare-43",
+  "description": "Ludum Dare 43",
   "version": "0.0.1",
-  "author": "Guillaume Baril",
   "scripts": {
     "build": "webpack",
     "start": "npm run build && webpack-dev-server --port=8000"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gbaril/phaser3_starter_template.git"
   },
   "license": "MIT",
   "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
