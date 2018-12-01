@@ -15,4 +15,8 @@ export default class GameScene extends Phaser.Scene {
             loop: -1
         });
     }
+
+    update() {
+        this.cameras.main.setBackgroundColor("#F0F");
+    }
 }
