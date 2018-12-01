@@ -7,7 +7,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.setTexture(key);
         this.setScale(3);
         this.body.setBounce(0.2);
-        this.body.setCollideWorldBounds(true);
+        this.body.setCollideWorldBounds(false);
         this.body.setGravityY(500);
 
         console.log(this);
@@ -28,8 +28,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             //this.anims.play('turn');
         }
 
-        if (scene.cursors.up.isDown && this.body.touching.down) {
-            console.log('jump');
+        if (scene.cursors.up.isDown) {
             this.body.setVelocityY(-330);
         }
     }

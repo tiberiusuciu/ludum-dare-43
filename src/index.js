@@ -2,10 +2,10 @@ import 'phaser';
 import GameScene from './scene/GameScene';
 
 var config = {
-    type: Phaser.WEBGL,
+    type: Phaser.AUTO,
     parent: 'content',
     pixelArt: true,
-    width: 800,
+    width: 1200,
     height: 600,
     physics: {
         default: 'arcade',
