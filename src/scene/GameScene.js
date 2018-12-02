@@ -1,6 +1,6 @@
 import Player from '../sprite/Player.js';
 
-const LEVEL_HEIGHT = 30000;
+const LEVEL_HEIGHT = 60000;
 const MIN_SPACE = 140;
 const MAX_SPACE = 180;
 
