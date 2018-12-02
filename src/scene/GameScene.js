@@ -40,7 +40,8 @@ export default class GameScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             x: 550,
-            y: LEVEL_HEIGHT - MAX_SPACE * 1.2
+            y: LEVEL_HEIGHT - MAX_SPACE * 1.2,
+            useLerp: true
         });
         this.add.existing(this.player);
 
