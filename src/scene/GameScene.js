@@ -58,10 +58,40 @@ export default class GameScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player, this.platforms);
 
+        this.graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xcc2900 } });
+        this.lineHeight = LEVEL_HEIGHT;
+        this.lineGap = -1;
+        this.speedUpEach = 2000;
+        this.speedCounter = 0;
+        this.line = new Phaser.Geom.Line(-1000, this.lineHeight, 2000, this.lineHeight);
+
+        this.lineDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
+        this.lineDistance.setScrollFactor(0);
+
         console.log(this);
     }
 
     update() {
         this.player.update(this);
+
+        ++this.speedCounter;
+        if(this.lineGap >= -3 && this.speedCounter >= this.speedUpEach) {
+            this.speedCounter = 0;
+            --this.lineGap;
+        }
+
+        this.lineHeight += this.lineGap;
+        this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
+
+        var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);
+        if(distanceFromLine >= 11) {
+            this.lineDistance.setText(distanceFromLine + 'm');
+            this.lineDistance.setColor(distanceFromLine < 50 ? '#cc2900' : '#FFF');
+        } else {
+            this.lineDistance.setText('');
+        }
+        
+        this.graphics.clear();
+        this.graphics.strokeLineShape(this.line);
     }
 }
