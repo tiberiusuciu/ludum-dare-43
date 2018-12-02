@@ -39,8 +39,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         scene.cameras.main.startFollow(this);
         scene.cameras.main.setLerp(0, 0.1);
-
-        console.log(this.body);
     }
 
     update(scene) {
