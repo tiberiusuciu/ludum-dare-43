@@ -45,7 +45,7 @@ export default class GameScene extends Phaser.Scene {
         this.graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xcc2900 } });
         this.lineHeight = LEVEL_HEIGHT;
         this.lineGap = -1;
-        this.speedUpEach = 200;
+        this.speedUpEach = 110;
         this.speedCounter = 0;
         this.line = new Phaser.Geom.Line(-1000, this.lineHeight, 2000, this.lineHeight);
 
@@ -65,9 +65,9 @@ export default class GameScene extends Phaser.Scene {
         this.player.update(this);
 
         ++this.speedCounter;
-        if(this.lineGap >= -3 && this.speedCounter >= this.speedUpEach) {
+        if(this.lineGap >= -5 && this.speedCounter >= this.speedUpEach) {
             this.speedCounter = 0;
-            this.speedUpEach *= 3;
+            this.speedUpEach *= 1.2;
             --this.lineGap;
         }
 
@@ -108,7 +108,7 @@ export default class GameScene extends Phaser.Scene {
                 if(ennemy.y > this.lineHeight) {
                     ennemy.setActive(false);
                     if(ennemy.point) {
-                        this.waitLinePoint += 30;
+                        this.waitLinePoint += 10;
                     }
                 }
             }
@@ -121,7 +121,7 @@ export default class GameScene extends Phaser.Scene {
     deathTimer() {
         this.deathText.setText(this.timer.getRepeatCount());
         if(this.timer.getRepeatCount() <= 0) {
-            this.cameras.main.fadeOut(1000);
+            this.cameras.main.fadeOut(350);
         }
     }
 

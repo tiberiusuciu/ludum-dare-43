@@ -61,8 +61,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.anims.play('stop');
         }
         
-        // && (this.body.touching.down || this.body.blocked.down)
-        if (up) {
+        if (up && (this.body.touching.down || this.body.blocked.down)) {
             this.body.setVelocityY(this.jumpVelocity);
         }
 
