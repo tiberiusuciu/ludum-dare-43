@@ -33,7 +33,7 @@ export default class GameScene extends Phaser.Scene {
     }
     
     create() {
-        this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT, 'building-bg');
+        this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
 
         this.ennemies = [];
         this.player = new Player({
@@ -98,7 +98,7 @@ export default class GameScene extends Phaser.Scene {
         }
 
         if(distanceFromLine < 5) {
-            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) / 2000);
+            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) * 0.05 / 200);
         } else {
             this.cameras.main.shake(0);
         }
