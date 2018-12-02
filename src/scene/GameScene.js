@@ -1,6 +1,6 @@
 import Player from '../sprite/Player.js';
 
-const LEVEL_HEIGHT = 60000;
+const LEVEL_HEIGHT = 30000;
 const MIN_SPACE = 140;
 const MAX_SPACE = 180;
 
@@ -27,16 +27,14 @@ export default class GameScene extends Phaser.Scene {
 
         var leftPlatform = true;
         for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
-            var limit = 450;
-            var x = (Math.random() * ((325 + example.width / 1.8) - limit)) + limit;
+            var scale = (Math.random() * (4 - 1)) + 1;
+            var x = (Math.random() * (550 - (380 + (scale * 40)))) + (380 + (scale * 40));
             if(leftPlatform) {
-                limit = 400;
                 origin = 0;
-                (Math.random() * ((875 - example.width / 1.8) - limit)) + limit
+                x = (Math.random() * ((820 - (scale * 40)) - 650)) + 650;
             }
-            var x = (Math.random() * 350) + limit;
             leftPlatform = !leftPlatform;
-            this.platforms.create(x, y, 'metal-platform').setScale(4, 2).refreshBody();
+            this.platforms.create(x, y, 'metal-platform').setScale(scale, 2).refreshBody();
         }
     
         this.player = new Player({
@@ -61,14 +59,20 @@ export default class GameScene extends Phaser.Scene {
         this.graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xcc2900 } });
         this.lineHeight = LEVEL_HEIGHT;
         this.lineGap = -1;
-        this.speedUpEach = 2000;
+        this.speedUpEach = 200;
         this.speedCounter = 0;
         this.line = new Phaser.Geom.Line(-1000, this.lineHeight, 2000, this.lineHeight);
 
         this.lineDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
         this.lineDistance.setScrollFactor(0);
 
-        console.log(this);
+        this.isDying = false;
+        this.deathText = this.add.text(600, 300, '', { fontSize: '450px', fill: '#cc2900' }).setAlpha(0.5).setOrigin(0.5);
+        this.deathText.setScrollFactor(0);
+
+        this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+            this.scene.restart();
+        }, this);
     }
 
     update() {
@@ -77,6 +81,7 @@ export default class GameScene extends Phaser.Scene {
         ++this.speedCounter;
         if(this.lineGap >= -3 && this.speedCounter >= this.speedUpEach) {
             this.speedCounter = 0;
+            this.speedUpEach *= 3;
             --this.lineGap;
         }
 
@@ -90,8 +95,25 @@ export default class GameScene extends Phaser.Scene {
         } else {
             this.lineDistance.setText('');
         }
+
+        if(distanceFromLine < 0) {
+            if(!this.isDying) {
+                this.isDying = true;
+                this.timer = this.time.addEvent({ delay: 1000, callback: this.deathTimer, callbackScope: this, repeat: 3});
+            }
+        } else {
+            this.deathText.setText('');
+            this.isDying = false;
+        }
         
         this.graphics.clear();
         this.graphics.strokeLineShape(this.line);
+    }
+
+    deathTimer() {
+        this.deathText.setText(this.timer.getRepeatCount());
+        if(this.timer.getRepeatCount() <= 0) {
+            this.cameras.main.fadeOut(1000);
+        }
     }
 }
