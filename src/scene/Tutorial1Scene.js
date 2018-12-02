@@ -1,10 +1,12 @@
 import Player from '../sprite/Player.js';
+import GameScene from './GameScene';
 
 export default class Tutorial1Scene extends Phaser.Scene {
     constructor() {
         super({
             key: 'Tutorial1Scene'
         });
+        this.isLeaving = false;
     }
 
     preload() {
@@ -64,11 +66,20 @@ export default class Tutorial1Scene extends Phaser.Scene {
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
         };
 
+
+        this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+            this.scene.start('GameScene');
+        }, this);
+
     }
 
     update() {
         this.player.update(this);
 
         // Check for transition
+        if (this.player.x >= 17 * 32 * 3 && !this.isLeaving) {
+            this.isLeaving = true;
+            this.cameras.main.fadeOut(1000);
+        }
     }
 }
