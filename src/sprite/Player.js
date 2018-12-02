@@ -2,8 +2,8 @@ const SCALE = 3;
 const JUMP_ANIM = 300;
 
 export default class Player extends Phaser.GameObjects.Sprite {
-    constructor({scene, x, y, key}) {
-        super(scene, x, y, key);
+    constructor({scene, x, y}) {
+        super(scene, x, y, 'player');
 
         scene.physics.world.enable(this);
 
@@ -14,26 +14,26 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         scene.anims.create({
             key: 'move',
-            frames: scene.anims.generateFrameNumbers(key, { start: 0, end: 9 }),
+            frames: scene.anims.generateFrameNumbers('player', { start: 0, end: 9 }),
             frameRate: 20,
             repeat: -1
         });
         
         scene.anims.create({
             key: 'stop',
-            frames: [ { key: key, frame: 0 } ],
+            frames: [ { key: 'player', frame: 0 } ],
             frameRate: 20
         });
 
         scene.anims.create({
             key: 'jumpUp',
-            frames: [ { key: key + 'jump', frame: 0 } ],
+            frames: [ { key: 'playerjump', frame: 0 } ],
             frameRate: 20
         });
 
         scene.anims.create({
             key: 'jumpDown',
-            frames: [ { key: key + 'jump', frame: 1 } ],
+            frames: [ { key: 'playerjump', frame: 1 } ],
             frameRate: 20
         });
 
@@ -58,8 +58,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.body.setVelocityX(0);
             this.anims.play('stop');
         }
-
-        if (up) {
+        
+        if (up && this.body.touching.down) {
             this.body.setVelocityY(-1000);
         }
 

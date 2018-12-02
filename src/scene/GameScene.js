@@ -1,5 +1,9 @@
 import Player from '../sprite/Player.js';
 
+const LEVEL_HEIGHT = 30000;
+const MIN_SPACE = 140;
+const MAX_SPACE = 180;
+
 export default class GameScene extends Phaser.Scene {
     constructor() {
         super({
@@ -15,19 +19,30 @@ export default class GameScene extends Phaser.Scene {
     }
     
     create() {
-        this.scrollingBg = this.add.tileSprite(600,300,400,1000,'building-bg');
+        this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT, 'building-bg');
 
-        this.staticBg = this.add.image(100,100,'building-bg');
+        this.platforms = this.physics.add.staticGroup();
+        this.floor = this.platforms.create(600, LEVEL_HEIGHT - MIN_SPACE, 'metal-platform').setScale(6, 4).refreshBody();
+        var example = new Phaser.GameObjects.Sprite(this, 0, 0, 'metal-platform');
 
-        // TODO : Remove
-        this.sol = this.physics.add.staticGroup();
-        this.sol.create(600, 600, 'metal-platform').setScale(2).refreshBody();
+        var leftPlatform = true;
+        for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
+            var limit = 450;
+            var x = (Math.random() * ((325 + example.width / 1.8) - limit)) + limit;
+            if(leftPlatform) {
+                limit = 400;
+                origin = 0;
+                (Math.random() * ((875 - example.width / 1.8) - limit)) + limit
+            }
+            var x = (Math.random() * 350) + limit;
+            leftPlatform = !leftPlatform;
+            this.platforms.create(x, y, 'metal-platform').setScale(4, 2).refreshBody();
+        }
     
         this.player = new Player({
             scene: this,
-            key: 'player',
             x: 550,
-            y: 300
+            y: LEVEL_HEIGHT - MAX_SPACE * 1.2
         });
         this.add.existing(this.player);
 
@@ -41,13 +56,12 @@ export default class GameScene extends Phaser.Scene {
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
         };
 
-        this.physics.add.collider(this.player, this.sol);
+        this.physics.add.collider(this.player, this.platforms);
 
         console.log(this);
     }
 
     update() {
-       // this.scrollingBg.
         this.player.update(this);
     }
 }
