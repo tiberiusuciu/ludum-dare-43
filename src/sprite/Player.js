@@ -62,7 +62,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
         
         // && (this.body.touching.down || this.body.blocked.down)
-        if (up && (this.body.touching.down || this.body.blocked.down)) {
+        if (up) {
             this.body.setVelocityY(this.jumpVelocity);
         }
 

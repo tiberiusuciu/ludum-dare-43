@@ -10,6 +10,8 @@ export default class GameScene extends Phaser.Scene {
         super({
             key: 'GameScene'
         });
+
+        this.waitLinePoint = 0;
     }
 
     preload() {
@@ -22,6 +24,7 @@ export default class GameScene extends Phaser.Scene {
     create() {
         this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT, 'building-bg');
 
+        this.ennemies = [];
         this.player = new Player({
             scene: this,
             x: 550,
@@ -68,8 +71,12 @@ export default class GameScene extends Phaser.Scene {
             --this.lineGap;
         }
 
-        this.lineHeight += this.lineGap;
-        this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
+        if(this.waitLinePoint <= 0) {
+            this.lineHeight += this.lineGap;
+            this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
+        } else {
+            --this.waitLinePoint;
+        }
 
         var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);
         if(distanceFromLine >= 11) {
@@ -90,6 +97,21 @@ export default class GameScene extends Phaser.Scene {
             }
             this.deathText.setText('');
             this.isDying = false;
+        }
+
+        for(var i = 0 ; i < this.ennemies.length ; ++i) {
+            var ennemy = this.ennemies[i];
+            if(ennemy.active) {
+                if(!ennemy.body.point && !ennemy.body.blocked.down) {
+                    ennemy.point = true;
+                }
+                if(ennemy.y > this.lineHeight) {
+                    ennemy.setActive(false);
+                    if(ennemy.point) {
+                        this.waitLinePoint += 30;
+                    }
+                }
+            }
         }
         
         this.graphics.clear();
@@ -137,9 +159,16 @@ export default class GameScene extends Phaser.Scene {
             var min = platform.x - platform.width / 2;
             var max = platform.x + platform.width / 2;
             var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, 'player').setScale(3);
+            ennemy.point = false;
+            ennemy.active = false;
+            this.ennemies.push(ennemy);
             this.physics.add.existing(ennemy);
             this.physics.add.collider(ennemy, this.platforms);
-            this.physics.add.collider(ennemy, this.player);
+            this.physics.add.collider(ennemy, this.player, this.push, null, ennemy);
         }
+    }
+
+    push() {
+        this.active = true;
     }
 }
