@@ -2,7 +2,7 @@ const SCALE = 3;
 const JUMP_ANIM = 300;
 
 export default class Player extends Phaser.GameObjects.Sprite {
-    constructor({scene, x, y}) {
+    constructor({scene, x, y, useLerp=false}) {
         super(scene, x, y, 'player');
 
         scene.physics.world.enable(this);
@@ -10,6 +10,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.setScale(SCALE);
         this.body.setBounce(0.2);
         this.body.setCollideWorldBounds(false);
+        this.jumpVelocity = useLerp ? -1000 : -750;
         //this.body.setGravityY(1000);
 
         scene.anims.create({
@@ -38,7 +39,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
         });
 
         scene.cameras.main.startFollow(this);
-        scene.cameras.main.setLerp(0, 0.1);
+        if (useLerp) {
+            scene.cameras.main.setLerp(0, 0.1);
+        }
     }
 
     update(scene) {
@@ -57,8 +60,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.anims.play('stop');
         }
         
-        if (up && this.body.touching.down) {
-            this.body.setVelocityY(-1000);
+        if (up && this.body.blocked.down ) {
+            this.body.setVelocityY(this.jumpVelocity);
         }
 
         if(this.body.velocity.y < -JUMP_ANIM) {
