@@ -12,6 +12,12 @@ export default class GameScene extends Phaser.Scene {
         });
 
         this.waitLinePoint = 0;
+        this.arrayOfImages = [
+            'metal-platform',
+            'metal-platform-2',
+            'metal-platform-3',
+            'metal-platform-4'
+        ];
     }
 
     preload() {
@@ -19,6 +25,11 @@ export default class GameScene extends Phaser.Scene {
         this.load.spritesheet('player', 'assets/player_strip10.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.spritesheet('playerjump', 'assets/player_jump_strip2.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.image('metal-platform', 'assets/metal_platform.png');
+        this.load.image('metal-platform-2', 'assets/metal_platform_2.png');
+        this.load.image('metal-platform-3', 'assets/metal_platform_3.png');
+        this.load.image('metal-platform-4', 'assets/metal_platform_4.png');
+
+
     }
     
     create() {
@@ -57,7 +68,7 @@ export default class GameScene extends Phaser.Scene {
         this.deathText.setScrollFactor(0);
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-            this.scene.restart();
+            this.scene.start('Tutorial1Scene');
         }, this);
     }
 
@@ -141,14 +152,16 @@ export default class GameScene extends Phaser.Scene {
 
         var leftPlatform = true;
         for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
-            var scale = (Math.random() * (4 - 1)) + 1;
-            var x = (Math.random() * (550 - (380 + (scale * 50)))) + (380 + (scale * 50));
+            var i = parseInt((Math.random() * (4 - 1)) + 1);
+
+            var x = (Math.random() * (550 - (380 + (i * 50)))) + (380 + (i * 50));
             if(leftPlatform) {
                 origin = 0;
-                x = (Math.random() * ((820 - (scale * 50)) - 650)) + 650;
+                x = (Math.random() * ((820 - (i * 50)) - 650)) + 650;
             }
+
             leftPlatform = !leftPlatform;
-            var platform = this.platforms.create(x, y, 'metal-platform').setScale(scale, 2).refreshBody();
+            var platform = this.platforms.create(x, y, this.arrayOfImages[i - 1]).refreshBody();
 
             this.maybeAddSacrifice(platform);
         }
