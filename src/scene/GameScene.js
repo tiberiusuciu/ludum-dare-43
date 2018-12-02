@@ -21,7 +21,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('building-bg', 'assets/building_background.png');
+        this.load.image('building-bg', 'assets/structure_with_shadow.png');
         this.load.spritesheet('player', 'assets/player_strip10.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.spritesheet('playerjump', 'assets/player_jump_strip2.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.image('metal-platform', 'assets/metal_platform.png');
