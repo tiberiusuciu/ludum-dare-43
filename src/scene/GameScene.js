@@ -56,7 +56,7 @@ export default class GameScene extends Phaser.Scene {
         this.graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xcc2900 } });
         this.lineHeight = LEVEL_HEIGHT;
         this.lineGap = -1;
-        this.speedUpEach = 110;
+        this.speedUpEach = 120;
         this.speedCounter = 0;
         this.line = new Phaser.Geom.Line(-1000, this.lineHeight, 2000, this.lineHeight);
 
@@ -78,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
         ++this.speedCounter;
         if(this.lineGap >= -5 && this.speedCounter >= this.speedUpEach) {
             this.speedCounter = 0;
-            this.speedUpEach *= 1.2;
+            this.speedUpEach *= 1.8;
             --this.lineGap;
         }
 
@@ -95,6 +95,12 @@ export default class GameScene extends Phaser.Scene {
             this.lineDistance.setColor(distanceFromLine < 50 ? '#cc2900' : '#FFF');
         } else {
             this.lineDistance.setText('');
+        }
+
+        if(distanceFromLine < 5) {
+            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) / 2000);
+        } else {
+            this.cameras.main.shake(0);
         }
 
         if(distanceFromLine < 0) {
@@ -119,7 +125,7 @@ export default class GameScene extends Phaser.Scene {
                 if(ennemy.y > this.lineHeight) {
                     ennemy.setActive(false);
                     if(ennemy.point) {
-                        this.waitLinePoint += 10;
+                        this.waitLinePoint += 15;
                     }
                 }
             }
@@ -154,10 +160,10 @@ export default class GameScene extends Phaser.Scene {
         for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
             var i = parseInt((Math.random() * (4 - 1)) + 1);
 
-            var x = (Math.random() * (550 - (380 + (i * 50)))) + (380 + (i * 50));
+            var x = (Math.random() * (550 - (380 + (i * 80)))) + (380 + (i * 80));
             if(leftPlatform) {
                 origin = 0;
-                x = (Math.random() * ((820 - (i * 50)) - 650)) + 650;
+                x = (Math.random() * ((820 - (i * 80)) - 650)) + 650;
             }
 
             leftPlatform = !leftPlatform;
