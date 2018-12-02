@@ -45,6 +45,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     }
 
     update(scene) {
+        //console.log(this);
         var left = scene.cursors.left.isDown || scene.wasd.left.isDown;
         var right = scene.cursors.right.isDown || scene.wasd.right.isDown;
         var up = scene.cursors.up.isDown || scene.wasd.up.isDown || scene.cursors.space.isDown;
@@ -61,6 +62,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
         
         if (up && this.body.blocked.down ) {
+        // && (this.body.touching.down || this.body.blocked.down)
+        if (up) {
             this.body.setVelocityY(this.jumpVelocity);
         }
 

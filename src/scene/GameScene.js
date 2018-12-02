@@ -1,7 +1,7 @@
 import Player from '../sprite/Player.js';
 
 const LEVEL_HEIGHT = 30000;
-const A = -1 / LEVEL_HEIGHT;
+const A = (0.05-1) / (LEVEL_HEIGHT+LEVEL_HEIGHT * 0.2);
 const MIN_SPACE = 140;
 const MAX_SPACE = 180;
 
@@ -22,9 +22,6 @@ export default class GameScene extends Phaser.Scene {
     create() {
         this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT, 'building-bg');
 
-        this.sacrifices = [];
-        this.generatePlatforms();
-    
         this.player = new Player({
             scene: this,
             x: 550,
@@ -32,6 +29,9 @@ export default class GameScene extends Phaser.Scene {
             useLerp: true
         });
         this.add.existing(this.player);
+
+        this.sacrifices = [];
+        this.generatePlatforms();
 
         this.cameras.main.setBackgroundColor("rgb(120, 120, 255)");
 
@@ -120,10 +120,10 @@ export default class GameScene extends Phaser.Scene {
         var leftPlatform = true;
         for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
             var scale = (Math.random() * (4 - 1)) + 1;
-            var x = (Math.random() * (550 - (380 + (scale * 40)))) + (380 + (scale * 40));
+            var x = (Math.random() * (550 - (380 + (scale * 50)))) + (380 + (scale * 50));
             if(leftPlatform) {
                 origin = 0;
-                x = (Math.random() * ((820 - (scale * 40)) - 650)) + 650;
+                x = (Math.random() * ((820 - (scale * 50)) - 650)) + 650;
             }
             leftPlatform = !leftPlatform;
             var platform = this.platforms.create(x, y, 'metal-platform').setScale(scale, 2).refreshBody();
@@ -139,6 +139,7 @@ export default class GameScene extends Phaser.Scene {
             var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, 'player').setScale(3);
             this.physics.add.existing(ennemy);
             this.physics.add.collider(ennemy, this.platforms);
+            this.physics.add.collider(ennemy, this.player);
         }
     }
 }
