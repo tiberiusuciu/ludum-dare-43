@@ -68,16 +68,26 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
+            console.log("fade complete");
+            
+            // this.isLeaving = false;
             this.scene.start('GameScene');
+            // this.scene.stop('Tutorial1Scene');
         }, this);
+
+        this.isLeaving = false;
 
     }
 
     update() {
         this.player.update(this);
 
+        console.log("IS LEAVING", this.isLeaving);
+        
         // Check for transition
         if (this.player.x >= 17 * 32 * 3 && !this.isLeaving) {
+            console.log("Checking");
+            
             this.isLeaving = true;
             this.cameras.main.fadeOut(1000);
         }
