@@ -1,5 +1,6 @@
 import 'phaser';
 import GameScene from './scene/GameScene';
+import Tutorial1Scene from './scene/Tutorial1Scene';
 
 var config = {
     type: Phaser.WEBGL,
@@ -17,7 +18,8 @@ var config = {
         }
     },
     scene: [
-        GameScene
+        GameScene,
+        Tutorial1Scene
     ]
 };
 
