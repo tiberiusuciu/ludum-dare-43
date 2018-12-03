@@ -18,8 +18,8 @@ var config = {
         }
     },
     scene: [
-        GameScene,
-        Tutorial1Scene
+        Tutorial1Scene,
+        GameScene
     ]
 };
 

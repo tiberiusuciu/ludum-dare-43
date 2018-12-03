@@ -77,6 +77,9 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
         this.isLeaving = false;
 
+        this.moveText = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
+        this.moveText.setFontFamily('assets/fnt_progggy.ttf');
+
     }
 
     update() {
