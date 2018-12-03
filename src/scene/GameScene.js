@@ -59,6 +59,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('city', 'assets/city.png');
         this.load.image('laser-indicator', 'assets/laser_indicator.png');
         this.load.image('end-indicator', 'assets/end_indicator.png');
+        this.load.image('sacrifice-indicator', 'assets/sacrifice_indicator.png');
 
         this.load.audio('bg_music', 'assets/bg_music.wav', {
             instances: 1
@@ -116,6 +117,11 @@ export default class GameScene extends Phaser.Scene {
         this.endIndicatorSprite.setScale(2);
         this.endIndicatorSprite.setAlpha(.75);
 
+        //this.sacrificeSprite = this.add.sprite(20, 25, 'sacrifice-indicator');
+        //this.sacrificeSprite.setScrollFactor(0);
+        //this.sacrificeSprite.setScale(2);
+        //this.sacrificeSprite.setAlpha(.75);
+
         this.lineDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
         this.lineDistance.setScrollFactor(0);
 
@@ -126,7 +132,7 @@ export default class GameScene extends Phaser.Scene {
         this.sacrificeText.setScrollFactor(0);
 
         this.isDying = false;
-        this.deathText = this.add.text(600, 300, '', { fontSize: '450px', fill: '#cc2900' }).setAlpha(0.5).setOrigin(0.5);
+        this.deathText = this.add.text(620, 250, '', { fontSize: '600px', fill: '#cc2900' }).setAlpha(0.5).setOrigin(0.5);
         this.deathText.setScrollFactor(0);
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
@@ -180,7 +186,7 @@ export default class GameScene extends Phaser.Scene {
         }
 
         if(distanceFromLine < 5) {
-            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) * 0.05 / 200);
+            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) * 0.01 / 200);
         } else {
             this.cameras.main.shake(0);
         }
@@ -281,6 +287,7 @@ export default class GameScene extends Phaser.Scene {
 
     deathTimer() {
         this.deathText.setText(this.timer.getRepeatCount());
+        this.deathText.setFontFamily('proggy')
         if(this.timer.getRepeatCount() <= 0) {
             this.cameras.main.fadeOut(350);
         }
