@@ -95,13 +95,13 @@ export default class Tutorial1Scene extends Phaser.Scene {
                 add.text(25, 200 + pargap, 'The theme is "Sacrifices Must Be Made" so I present you our game!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 230 + pargap, 'You have been selected amongst many others to a race to the top of the worlds tallest building.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 260 + pargap, 'There can only be one winner and you may use any means to get to the top.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(25, 290 + pargap, 'In addition, there is a deadly laser scanning the building from the bottom to the top.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(25, 290 + pargap, 'In addition, there is a rapid moving laser scanning the building from the bottom to the top.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 320 + pargap, 'It eliminates everyone that goes under it.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 350 + pargap, 'When scanning someone, the laser takes some time to process the individual.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 
-                add.text(25, 430 + pargap, 'Press <M> to muste the music', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(25, 450 + pargap, 'Press <enter> to start!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(25, 470 + pargap, 'Press <space> to skip the tutorials!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                // add.text(25, 430 + pargap, 'Press <M> to muste the music', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(25, 450 + pargap, 'Press <enter> to start!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
+                add.text(25, 470 + pargap, 'Press <space> to skip the tutorials!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
 
                 add.text(750, 150, 'Controls', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(750, 160, '____________________________________', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
@@ -118,6 +118,11 @@ export default class Tutorial1Scene extends Phaser.Scene {
                 add.text(750, 370, '- Do not let the laser go above you!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(750, 400, '- Push your competition off the ledges', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(764, 420,  'to slow down the laser!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+
+
+                add.text(890, 500,  '*No one is hurt when thrown off the building', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
+                add.text(890, 520,  'strong safety matts are at the bottom to catch them', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
+                add.text(890, 540,  '(We promise!)', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
             }
         });
 
@@ -131,7 +136,7 @@ export default class Tutorial1Scene extends Phaser.Scene {
     update() {
 
         if (this.keyM.isDown) {
-            this.game.bgmusic.mute = true;
+            // this.game.bgmusic.mute = true;
         }
 
         if (this.keyEnter.isDown) {

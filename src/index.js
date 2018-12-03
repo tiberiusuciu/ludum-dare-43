@@ -23,7 +23,7 @@ var config = {
         TitleScene,
         Tutorial1Scene,
         GameScene,
-        FinishScene 
+        FinishScene
     ]
 };
 
