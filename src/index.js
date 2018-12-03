@@ -24,3 +24,5 @@ var config = {
 };
 
 window.game = new Phaser.Game(config);
+
+window.game.bgmusic = false;

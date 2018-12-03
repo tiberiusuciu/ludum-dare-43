@@ -23,10 +23,13 @@ export default class Tutorial1Scene extends Phaser.Scene {
         this.load.audio('playerJumpSoundfalse', 'assets/jump2.wav', {
             instances: 1
         });
+
+        this.load.audio('bg_music', 'assets/bg_music.wav', {
+            instances: 1
+        });
     }
     
     create() {
-
         const map = this.make.tilemap({ key: "map"});
 
         // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
@@ -72,6 +75,14 @@ export default class Tutorial1Scene extends Phaser.Scene {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
         };
+
+        if(!this.game.bgmusic) {
+            this.sound.play('bg_music', {
+                loop: true,
+                volume: 0.2
+            });
+            this.game.bgmusic = true;
+        }
 
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {

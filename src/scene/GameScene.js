@@ -1,6 +1,6 @@
 import Player from '../sprite/Player.js';
 
-const LEVEL_HEIGHT = 30000;
+const LEVEL_HEIGHT = 1000;
 const A = (0.05-1) / (LEVEL_HEIGHT+LEVEL_HEIGHT * 0.2);
 const BACKGROUND_A = (300 - 1000) / LEVEL_HEIGHT;
 const MIN_SPACE = 140;
@@ -41,6 +41,10 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('enemy_03', 'assets/enemy_03.png');
         this.load.image('enemy_04', 'assets/enemy_04.png');
         this.load.image('city', 'assets/city.png');
+
+        this.load.audio('bg_music', 'assets/bg_music.wav', {
+            instances: 1
+        });
 
         this.load.audio('playerJumpSoundtrue', 'assets/jump.wav', {
             instances: 1
@@ -91,6 +95,14 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
             this.scene.start('Tutorial1Scene');
         }, this);
+
+        if(!this.game.bgmusic) {
+            this.sound.play('bg_music', {
+                loop: true,
+                volume: 0.2
+            });
+            this.game.bgmusic = true;
+        }
     }
 
     update() {
