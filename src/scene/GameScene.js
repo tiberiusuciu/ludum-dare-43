@@ -103,7 +103,7 @@ export default class GameScene extends Phaser.Scene {
         this.graphics = this.add.graphics({ lineStyle: { width: 4, color: 0xcc2900 } });
         this.lineHeight = LEVEL_HEIGHT;
         this.lineGap = -1;
-        this.speedUpEach = 120;
+        this.speedUpEach = 300;
         this.speedCounter = 0;
         this.line = new Phaser.Geom.Line(-1000, this.lineHeight, 2000, this.lineHeight);
 
@@ -184,7 +184,7 @@ export default class GameScene extends Phaser.Scene {
         ++this.speedCounter;
         if(this.lineGap >= -4 && this.speedCounter >= this.speedUpEach) {
             this.speedCounter = 0;
-            this.speedUpEach *= 1.8;
+            this.speedUpEach *= 1.5;
             --this.lineGap;
         }
 
