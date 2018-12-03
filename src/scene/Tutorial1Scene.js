@@ -16,6 +16,13 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
         this.load.spritesheet('player', 'assets/player_strip10.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.spritesheet('playerjump', 'assets/player_jump_strip2.png',{ frameWidth: 16, frameHeight: 24 });
+
+        this.load.audio('playerJumpSoundtrue', 'assets/jump.wav', {
+            instances: 1
+        });
+        this.load.audio('playerJumpSoundfalse', 'assets/jump2.wav', {
+            instances: 1
+        });
     }
     
     create() {
@@ -68,29 +75,21 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-            console.log("fade complete");
-            
-            // this.isLeaving = false;
             this.scene.start('GameScene');
-            // this.scene.stop('Tutorial1Scene');
         }, this);
 
         this.isLeaving = false;
 
         this.moveText = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
-        this.moveText.setFontFamily('assets/fnt_progggy.ttf');
+        this.moveText.setFontFamily('assets/fnt_proggy.ttf');
 
     }
 
     update() {
         this.player.update(this);
-
-        console.log("IS LEAVING", this.isLeaving);
         
         // Check for transition
         if (this.player.x >= 17 * 32 * 3 && !this.isLeaving) {
-            console.log("Checking");
-            
             this.isLeaving = true;
             this.cameras.main.fadeOut(1000);
         }

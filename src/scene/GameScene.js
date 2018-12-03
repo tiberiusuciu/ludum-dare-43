@@ -2,6 +2,7 @@ import Player from '../sprite/Player.js';
 
 const LEVEL_HEIGHT = 30000;
 const A = (0.05-1) / (LEVEL_HEIGHT+LEVEL_HEIGHT * 0.2);
+const BACKGROUND_A = (300 - 1000) / LEVEL_HEIGHT;
 const MIN_SPACE = 140;
 const MAX_SPACE = 180;
 
@@ -18,6 +19,13 @@ export default class GameScene extends Phaser.Scene {
             'metal-platform-3',
             'metal-platform-4'
         ];
+
+        this.arrayOfEnnemies = [
+            'enemy_01',
+            'enemy_02',
+            'enemy_03',
+            'enemy_04'
+        ];
     }
 
     preload() {
@@ -28,7 +36,18 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('metal-platform-2', 'assets/metal_platform_2.png');
         this.load.image('metal-platform-3', 'assets/metal_platform_3.png');
         this.load.image('metal-platform-4', 'assets/metal_platform_4.png');
+        this.load.image('enemy_01', 'assets/enemy_01.png');
+        this.load.image('enemy_02', 'assets/enemy_02.png');
+        this.load.image('enemy_03', 'assets/enemy_03.png');
+        this.load.image('enemy_04', 'assets/enemy_04.png');
         this.load.image('city', 'assets/city.png');
+
+        this.load.audio('playerJumpSoundtrue', 'assets/jump.wav', {
+            instances: 1
+        });
+        this.load.audio('playerJumpSoundfalse', 'assets/jump2.wav', {
+            instances: 1
+        });
     }
     
     create() {
@@ -72,14 +91,23 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
             this.scene.start('Tutorial1Scene');
         }, this);
-
-        this.citySpeed = 20;
-        this.cityCounter = 0;
     }
 
     update() {
         this.player.update(this);
 
+        var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);;
+        if(this.lineHeight > this.maxLine) {
+            if(this.waitLinePoint <= 0) {
+                this.lineHeight += this.lineGap;
+                this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
+            } else {
+                --this.waitLinePoint;
+            }
+        } else {
+            this.cameras.main.shake(0); 
+        }
+        
         ++this.speedCounter;
         if(this.lineGap >= -4 && this.speedCounter >= this.speedUpEach) {
             this.speedCounter = 0;
@@ -87,25 +115,17 @@ export default class GameScene extends Phaser.Scene {
             --this.lineGap;
         }
 
-        if(this.waitLinePoint <= 0) {
-            this.lineHeight += this.lineGap;
-            this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
+        if(distanceFromLine < 5) {
+            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) * 0.05 / 200);
         } else {
-            --this.waitLinePoint;
+            this.cameras.main.shake(0);
         }
 
-        var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);
         if(distanceFromLine >= 11) {
             this.lineDistance.setText(distanceFromLine + 'm');
             this.lineDistance.setColor(distanceFromLine < 50 ? '#cc2900' : '#FFF');
         } else {
             this.lineDistance.setText('');
-        }
-
-        if(distanceFromLine < 5) {
-            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) * 0.05 / 200);
-        } else {
-            this.cameras.main.shake(0);
         }
 
         if(distanceFromLine < 0) {
@@ -130,18 +150,17 @@ export default class GameScene extends Phaser.Scene {
                 if(ennemy.y > this.lineHeight) {
                     ennemy.setActive(false);
                     if(ennemy.point) {
-                        this.waitLinePoint += 15;
+                        this.waitLinePoint += 25;
                     }
                 }
             }
         }
- 
-        if(this.cityCounter >= this.citySpeed) {
-            this.city.setY(this.city.y + 1);
-            this.cityCounter = 0;
-        } else {
-            ++this.cityCounter;
+        
+        var lineY = BACKGROUND_A * this.player.y + 1000;
+        if(lineY < 300) {
+            lineY = 300;
         }
+        this.city.setY(lineY);
          
         this.graphics.clear();
         this.graphics.strokeLineShape(this.line);
@@ -169,6 +188,7 @@ export default class GameScene extends Phaser.Scene {
         this.floor = this.platforms.create(600, LEVEL_HEIGHT - MIN_SPACE, 'metal-platform').setScale(6, 4).refreshBody();
 
         var rightPlatform = true;
+        var platform;
         for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
             var i = parseInt((Math.random() * (4 - 1)) + 1);
             var x = (Math.random() * (550 - (350 + ((4 - i) * 50)))) + (350 + ((4 - i) * 50));
@@ -176,17 +196,20 @@ export default class GameScene extends Phaser.Scene {
                 x = (Math.random() * ((820 - ((4 - i) * 30)) - 650)) + 650;
             }
             rightPlatform = !rightPlatform;
-            var platform = this.platforms.create(x, y, this.arrayOfImages[i - 1]).refreshBody();
+            platform = this.platforms.create(x, y, this.arrayOfImages[i - 1]).refreshBody();
 
             this.maybeAddSacrifice(platform);
         }
+
+        this.maxLine = platform.y + 50;
+        platform.setTexture(this.arrayOfImages[3]).refreshBody();
     }
 
     maybeAddSacrifice(platform) {
         if(Math.random() < platform.y * A + 1) {
             var min = platform.x - platform.width / 2;
             var max = platform.x + platform.width / 2;
-            var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, 'player').setScale(3);
+            var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, this.arrayOfEnnemies[parseInt(Math.random() * 3)]).setScale(3);
             ennemy.point = false;
             ennemy.active = false;
             this.ennemies.push(ennemy);

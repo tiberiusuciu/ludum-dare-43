@@ -18,7 +18,6 @@ var config = {
         }
     },
     scene: [
-        Tutorial1Scene,
         GameScene
     ]
 };
