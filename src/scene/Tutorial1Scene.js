@@ -90,9 +90,6 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
         this.isLeaving = false;
 
-        this.moveText = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
-        this.moveText.setFontFamily('assets/fnt_proggy.ttf');
-
         this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
 
     }
