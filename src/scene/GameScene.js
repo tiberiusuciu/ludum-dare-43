@@ -79,7 +79,8 @@ export default class GameScene extends Phaser.Scene {
         this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
 
 
-        this.ennemies = [];
+        this.game.ennemies = [];
+        this.game.points = 0;
         this.player = new Player({
             scene: this,
             x: 550,
@@ -120,6 +121,9 @@ export default class GameScene extends Phaser.Scene {
 
         this.endDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#fff' });
         this.endDistance.setScrollFactor(0);
+
+        this.sacrificeText = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#fff' });
+        this.sacrificeText.setScrollFactor(0);
 
         this.isDying = false;
         this.deathText = this.add.text(600, 300, '', { fontSize: '450px', fill: '#cc2900' }).setAlpha(0.5).setOrigin(0.5);
@@ -183,6 +187,8 @@ export default class GameScene extends Phaser.Scene {
 
         var lineDistance = this.lineDistance;
         var endDistance = this.endDistance;
+        var sacrificeText = this.sacrificeText;
+        var score = this.game.points;
 
         WebFont.load({
             custom: {
@@ -213,6 +219,13 @@ export default class GameScene extends Phaser.Scene {
                 endDistance.x = 610;
                 endDistance.y = 37;
                 endDistance.setFontSize(32);
+
+                sacrificeText.setText("Sacrifices: " + score);
+                sacrificeText.setColor('#fff');
+                sacrificeText.setFontFamily('proggy')
+                sacrificeText.x = 25;
+                sacrificeText.y = 37;
+                sacrificeText.setFontSize(32);
             }
         });
 
@@ -229,8 +242,8 @@ export default class GameScene extends Phaser.Scene {
             this.isDying = false;
         }
 
-        for(var i = 0 ; i < this.ennemies.length ; ++i) {
-            var ennemy = this.ennemies[i];
+        for(var i = 0 ; i < this.game.ennemies.length ; ++i) {
+            var ennemy = this.game.ennemies[i];
             if(ennemy.active) {
                 if(!ennemy.body.point && !ennemy.body.blocked.down) {
                     ennemy.point = true;
@@ -239,6 +252,7 @@ export default class GameScene extends Phaser.Scene {
                     ennemy.setActive(false);
                     if(ennemy.point) {
                         this.waitLinePoint += 25;
+                        this.game.points++;
                     }
                 }
             }
@@ -312,7 +326,7 @@ export default class GameScene extends Phaser.Scene {
             ennemy.flipX = Math.random() > 0.5 ? true : false;
             ennemy.point = false;
             ennemy.active = false;
-            this.ennemies.push(ennemy);
+            this.game.ennemies.push(ennemy);
             this.physics.add.existing(ennemy);
             this.physics.add.collider(ennemy, this.platforms);
             this.physics.add.collider(ennemy, this.player, this.push, null, ennemy);
