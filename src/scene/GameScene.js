@@ -61,10 +61,18 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('end-indicator', 'assets/end_indicator.png');
         this.load.image('sacrifice-indicator', 'assets/sacrifice_indicator.png');
 
+        this.load.audio('countdown', 'assets/countdown.wav', {
+            instances: 1
+        });
+        this.load.audio('walktrue', 'assets/walk2.wav', {
+            instances: 1
+        });
+        this.load.audio('walkfalse', 'assets/walk.wav', {
+            instances: 1
+        });
         this.load.audio('bg_music', 'assets/bg_music.wav', {
             instances: 1
         });
-
         this.load.audio('playerJumpSoundtrue', 'assets/jump.wav', {
             instances: 1
         });
@@ -172,7 +180,7 @@ export default class GameScene extends Phaser.Scene {
         var distanceFromEnd = parseInt((this.player.y - this.player.height / 2) / 28);
         if(this.lineHeight > this.maxLine) {
             if(this.waitLinePoint <= 0) {
-                this.lineHeight += this.lineGap;
+                //this.lineHeight += this.lineGap;
                 this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
             } else {
                 --this.waitLinePoint;
@@ -294,7 +302,10 @@ export default class GameScene extends Phaser.Scene {
 
     deathTimer() {
         this.deathText.setText(this.timer.getRepeatCount());
-        this.deathText.setFontFamily('proggy')
+        this.deathText.setFontFamily('proggy');
+        this.sound.play('countdown', {
+            volume: 0.1
+        });
         if(this.timer.getRepeatCount() <= 0) {
             this.cameras.main.fadeOut(350);
         }

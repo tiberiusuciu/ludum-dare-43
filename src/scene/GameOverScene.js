@@ -86,11 +86,11 @@ export default class GameOverScene extends Phaser.Scene {
             }
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.scene.start('TitleScene');
         }
         
-        if (Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
             this.scene.start('GameScene');
         }
     }

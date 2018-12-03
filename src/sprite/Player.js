@@ -44,6 +44,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
 
         this.loudJump = false;
+        this.loudWalk = false;
+        this.walkCounter = 0;
     }
 
     update(scene) {
@@ -53,6 +55,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         if (left || right) {
             var direction = right ? 1 : -1;
+            this.walkCounter++;
 
             this.body.setVelocityX(300 * direction);
             this.flipX = direction != 1;
@@ -61,9 +64,15 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.body.setVelocityX(0);
             this.anims.play('stop');
         }
-        
+
+        if((left || right) && (this.body.touching.down || this.body.blocked.down) && this.walkCounter > 12) {
+            this.walkCounter = 0;
+            scene.sound.play('walk' + this.loudWalk, {volume: 1});
+            this.loudWalk = !this.loudWalk;
+        }
+
         if (up && (this.body.touching.down || this.body.blocked.down)) {
-            scene.sound.play('playerJumpSound' + this.loudJump);
+            scene.sound.play('playerJumpSound' + this.loudJump, {volume: 0.4});
             this.loudJump = !this.loudJump;
             this.body.setVelocityY(this.jumpVelocity);
         }

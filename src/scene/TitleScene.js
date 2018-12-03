@@ -145,11 +145,11 @@ export default class Tutorial1Scene extends Phaser.Scene {
             }
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.scene.start('Tutorial1Scene');
         }
         
-        if (Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
             this.scene.start('GameScene');
         }
     }
