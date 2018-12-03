@@ -58,7 +58,7 @@ export default class GameOverScene extends Phaser.Scene {
                 add.text(495, 185, 'Unlike some, you fell!', { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
                 add.text(540, 215, '* and landed safely *', { fontFamily: 'proggy', fontSize: 20, color: '#aaa' });
 
-                add.text(370, 245, 'You sacrificed ' + points + " along the way!", { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
+                add.text(650, 500, 'You sacrificed ' + (points == 0 ? "nobody" : (points + (points > 1 ? " competitors" : ' competitor'))) + " along the way!", { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
 
 
 
