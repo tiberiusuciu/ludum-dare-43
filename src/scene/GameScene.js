@@ -1,6 +1,6 @@
 import Player from '../sprite/Player.js';
 
-const LEVEL_HEIGHT = 20000;
+const LEVEL_HEIGHT = 24000;
 const A = (0.05-1) / (LEVEL_HEIGHT+LEVEL_HEIGHT * 0.2);
 const BACKGROUND_A = (300 - 1000) / LEVEL_HEIGHT;
 const MIN_SPACE = 140;
@@ -108,9 +108,18 @@ export default class GameScene extends Phaser.Scene {
         this.laserIndicatorSprite = this.add.sprite(600, 550, 'laser-indicator');
         this.laserIndicatorSprite.setScrollFactor(0);
         this.laserIndicatorSprite.setScale(2);
+        this.laserIndicatorSprite.setAlpha(.75);
+
+        this.endIndicatorSprite = this.add.sprite(600, 50, 'end-indicator');
+        this.endIndicatorSprite.setScrollFactor(0);
+        this.endIndicatorSprite.setScale(2);
+        this.endIndicatorSprite.setAlpha(.75);
 
         this.lineDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
         this.lineDistance.setScrollFactor(0);
+
+        this.endDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#fff' });
+        this.endDistance.setScrollFactor(0);
 
         this.isDying = false;
         this.deathText = this.add.text(600, 300, '', { fontSize: '450px', fill: '#cc2900' }).setAlpha(0.5).setOrigin(0.5);
@@ -146,7 +155,8 @@ export default class GameScene extends Phaser.Scene {
             this.cameras.main.fadeOut(2000);
         }
 
-        var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);;
+        var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);
+        var distanceFromEnd = parseInt((this.player.y - this.player.height / 2) / 28);
         if(this.lineHeight > this.maxLine) {
             if(this.waitLinePoint <= 0) {
                 this.lineHeight += this.lineGap;
@@ -172,6 +182,7 @@ export default class GameScene extends Phaser.Scene {
         }
 
         var lineDistance = this.lineDistance;
+        var endDistance = this.endDistance;
 
         WebFont.load({
             custom: {
@@ -195,6 +206,13 @@ export default class GameScene extends Phaser.Scene {
                     lineDistance.y = 540;
                     lineDistance.setFontSize(26);
                 }
+
+                endDistance.setText(distanceFromEnd + 'm');
+                endDistance.setColor('#fff');
+                endDistance.setFontFamily('proggy')
+                endDistance.x = 610;
+                endDistance.y = 37;
+                endDistance.setFontSize(32);
             }
         });
 
