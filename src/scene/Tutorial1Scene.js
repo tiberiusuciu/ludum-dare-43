@@ -1,5 +1,4 @@
 import Player from '../sprite/Player.js';
-import GameScene from './GameScene';
 
 export default class Tutorial1Scene extends Phaser.Scene {
     constructor() {

@@ -1,6 +1,6 @@
 import Player from '../sprite/Player.js';
 
-const LEVEL_HEIGHT = 1000;
+const LEVEL_HEIGHT = 20000;
 const A = (0.05-1) / (LEVEL_HEIGHT+LEVEL_HEIGHT * 0.2);
 const BACKGROUND_A = (300 - 1000) / LEVEL_HEIGHT;
 const MIN_SPACE = 140;
@@ -55,6 +55,7 @@ export default class GameScene extends Phaser.Scene {
     }
     
     create() {
+        this.cameras.main.win = false;
         this.city = this.add.tileSprite(600, 300, 1200, 600, 'city');
         this.city.setScrollFactor(0);
         this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
@@ -93,7 +94,11 @@ export default class GameScene extends Phaser.Scene {
         this.deathText.setScrollFactor(0);
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
-            this.scene.start('Tutorial1Scene');
+            if(!camera.win) {
+                this.scene.start('Tutorial1Scene');
+            } else {
+                this.scene.start('FinishScene');
+            }
         }, this);
 
         if(!this.game.bgmusic) {
@@ -101,12 +106,17 @@ export default class GameScene extends Phaser.Scene {
                 loop: true,
                 volume: 0.2
             });
-            this.game.bgmusic = true;
+            this.game.bgmusic = true;this.scene.start('Tutorial1Scene');
         }
     }
 
     update() {
         this.player.update(this);
+
+        if(!this.cameras.main.win && this.lineHeight <= this.maxLine) {
+            this.cameras.main.win = true;
+            this.cameras.main.fadeOut(2000);
+        }
 
         var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);;
         if(this.lineHeight > this.maxLine) {
@@ -221,7 +231,7 @@ export default class GameScene extends Phaser.Scene {
         if(Math.random() < platform.y * A + 1) {
             var min = platform.x - platform.width / 2;
             var max = platform.x + platform.width / 2;
-            var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, this.arrayOfEnnemies[parseInt(Math.random() * 3)]).setScale(3);
+            var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, this.arrayOfEnnemies[Math.round(Math.random() * 3)]).setScale(3);
             ennemy.point = false;
             ennemy.active = false;
             this.ennemies.push(ennemy);
