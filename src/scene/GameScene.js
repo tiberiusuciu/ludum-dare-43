@@ -73,7 +73,8 @@ export default class GameScene extends Phaser.Scene {
         this.sacrifices = [];
         this.generatePlatforms();
 
-        this.cameras.main.setBackgroundColor("rgb(120, 120, 255)");
+        this.skyColor = new Phaser.Display.Color(77, 195, 255);
+        this.spaceColor = new Phaser.Display.Color(0, 31, 49);
 
         this.createKeyboard();
 
@@ -113,7 +114,10 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.player.update(this);
 
-        if(!this.cameras.main.win && this.lineHeight <= this.maxLine) {
+        var hexColor = Phaser.Display.Color.Interpolate.ColorWithColor(this.spaceColor, this.skyColor, LEVEL_HEIGHT, this.player.y);
+        this.cameras.main.setBackgroundColor(hexColor);
+
+        if(!this.cameras.main.win && this.player.y <= this.maxLine) {
             this.cameras.main.win = true;
             this.cameras.main.fadeOut(2000);
         }

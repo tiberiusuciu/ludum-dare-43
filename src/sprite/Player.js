@@ -62,7 +62,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.anims.play('stop');
         }
         
-
         if (up && (this.body.touching.down || this.body.blocked.down)) {
             scene.sound.play('playerJumpSound' + this.loudJump);
             this.loudJump = !this.loudJump;
