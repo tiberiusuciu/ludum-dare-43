@@ -93,6 +93,8 @@ export default class Tutorial1Scene extends Phaser.Scene {
         this.moveText = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
         this.moveText.setFontFamily('assets/fnt_proggy.ttf');
 
+        this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
+
     }
 
     update() {
@@ -102,6 +104,17 @@ export default class Tutorial1Scene extends Phaser.Scene {
         if (this.player.x >= 17 * 32 * 3 && !this.isLeaving) {
             this.isLeaving = true;
             this.cameras.main.fadeOut(1000);
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keyM)) {
+            if (!this.game.isMuted) {
+                this.game.isMuted = true;
+                this.game.song.mute = true;
+            }
+            else {
+                this.game.isMuted = false;
+                this.game.song.mute = false;
+            }
         }
     }
 }

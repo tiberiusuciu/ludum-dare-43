@@ -96,7 +96,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
             if(!camera.win) {
-                this.scene.start('Tutorial1Scene');
+                this.scene.start('GameOverScene');
             } else {
                 this.scene.start('FinishScene');
             }
@@ -109,6 +109,8 @@ export default class GameScene extends Phaser.Scene {
             });
             this.game.bgmusic = true;this.scene.start('Tutorial1Scene');
         }
+
+        this.keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
     }
 
     update() {
@@ -190,6 +192,17 @@ export default class GameScene extends Phaser.Scene {
          
         this.graphics.clear();
         this.graphics.strokeLineShape(this.line);
+
+        if (Phaser.Input.Keyboard.JustDown(this.keyM)) {
+            if (!this.game.isMuted) {
+                this.game.isMuted = true;
+                this.game.song.mute = true;
+            }
+            else {
+                this.game.isMuted = false;
+                this.game.song.mute = false;
+            }
+        }
     }
 
     deathTimer() {

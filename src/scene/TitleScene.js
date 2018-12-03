@@ -57,10 +57,13 @@ export default class Tutorial1Scene extends Phaser.Scene {
         backwallLayer.setCollisionByProperty({ collides: true });
 
         if(!this.game.bgmusic) {
-           this.sound.play('bg_music', {
-                loop: true,
-                volume: 0.2
-            });
+
+            this.game.song = this.sound.add('bg_music', {loop: true, volume: 0.2});
+            this.game.song.play();
+        //    this.sound.play('bg_music', {
+        //         loop: true,
+        //         volume: 0.2
+        //     });
             this.game.bgmusic = true;
         }
 
@@ -95,7 +98,7 @@ export default class Tutorial1Scene extends Phaser.Scene {
                 add.text(25, 200 + pargap, 'The theme is "Sacrifices Must Be Made" so I present you our game!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 230 + pargap, 'You have been selected amongst many others to a race to the top of the worlds tallest building.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 260 + pargap, 'There can only be one winner and you may use any means to get to the top.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(25, 290 + pargap, 'In addition, there is a rapid moving laser scanning the building from the bottom to the top.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(25, 290 + pargap, 'In addition, there is a rapid moving laser, scanning the building from the bottom to the top.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 320 + pargap, 'It eliminates everyone that goes under it.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 350 + pargap, 'When scanning someone, the laser takes some time to process the individual.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 
@@ -135,8 +138,15 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
     update() {
 
-        if (this.keyM.isDown) {
-            // this.game.bgmusic.mute = true;
+        if (Phaser.Input.Keyboard.JustDown(this.keyM)) {
+            if (!this.game.isMuted) {
+                this.game.isMuted = true;
+                this.game.song.mute = true;
+            }
+            else {
+                this.game.isMuted = false;
+                this.game.song.mute = false;
+            }
         }
 
         if (this.keyEnter.isDown) {

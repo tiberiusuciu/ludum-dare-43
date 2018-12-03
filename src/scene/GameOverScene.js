@@ -1,9 +1,9 @@
 const LEVEL_HEIGHT = 1000;
 
-export default class FinishScene extends Phaser.Scene {
+export default class GameOverScene extends Phaser.Scene {
     constructor() {
         super({
-            key: 'FinishScene'
+            key: 'GameOverScene'
         });
     }
 
@@ -50,13 +50,14 @@ export default class FinishScene extends Phaser.Scene {
             },
             active: function ()
             {
-                add.text(525, 125, 'YOU WON! ', { fontFamily: 'proggy', fontSize: 64, color: '#28ff41' });
+                add.text(525, 125, 'YOU LOST! ', { fontFamily: 'proggy', fontSize: 64, color: '#e20000' });
 
 
-                add.text(370, 185, 'Unlike everyone else, you got to the top!', { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
+                add.text(495, 185, 'Unlike some, you fell!', { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
+                add.text(540, 215, '* and landed safely *', { fontFamily: 'proggy', fontSize: 20, color: '#aaa' });
                 
-                add.text(25, 450 + pargap, 'Press <enter> to go back to the title screen!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
-                add.text(25, 470 + pargap, 'Press <space> to play again!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
+                add.text(25, 450 + pargap, 'Press <enter> to go back to the title screen!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(25, 470 + pargap, 'Press <space> to play again!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
 
             }
         });
