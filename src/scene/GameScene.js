@@ -28,12 +28,14 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('metal-platform-2', 'assets/metal_platform_2.png');
         this.load.image('metal-platform-3', 'assets/metal_platform_3.png');
         this.load.image('metal-platform-4', 'assets/metal_platform_4.png');
-
-
+        this.load.image('city', 'assets/city.png');
     }
     
     create() {
+        this.city = this.add.tileSprite(600, 300, 1200, 600, 'city');
+        this.city.setScrollFactor(0);
         this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
+
 
         this.ennemies = [];
         this.player = new Player({
@@ -70,13 +72,16 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.once('camerafadeoutcomplete', function (camera) {
             this.scene.start('Tutorial1Scene');
         }, this);
+
+        this.citySpeed = 20;
+        this.cityCounter = 0;
     }
 
     update() {
         this.player.update(this);
 
         ++this.speedCounter;
-        if(this.lineGap >= -5 && this.speedCounter >= this.speedUpEach) {
+        if(this.lineGap >= -4 && this.speedCounter >= this.speedUpEach) {
             this.speedCounter = 0;
             this.speedUpEach *= 1.8;
             --this.lineGap;
@@ -130,7 +135,14 @@ export default class GameScene extends Phaser.Scene {
                 }
             }
         }
-        
+ 
+        if(this.cityCounter >= this.citySpeed) {
+            this.city.setY(this.city.y + 1);
+            this.cityCounter = 0;
+        } else {
+            ++this.cityCounter;
+        }
+         
         this.graphics.clear();
         this.graphics.strokeLineShape(this.line);
     }
@@ -156,17 +168,14 @@ export default class GameScene extends Phaser.Scene {
         this.platforms = this.physics.add.staticGroup();
         this.floor = this.platforms.create(600, LEVEL_HEIGHT - MIN_SPACE, 'metal-platform').setScale(6, 4).refreshBody();
 
-        var leftPlatform = true;
+        var rightPlatform = true;
         for(var y = LEVEL_HEIGHT - MIN_SPACE * 2 ; y > (MAX_SPACE + MIN_SPACE) / 2 ; y -= (Math.random() * (MAX_SPACE - MIN_SPACE)) + MIN_SPACE) {
             var i = parseInt((Math.random() * (4 - 1)) + 1);
-
-            var x = (Math.random() * (550 - (380 + (i * 80)))) + (380 + (i * 80));
-            if(leftPlatform) {
-                origin = 0;
-                x = (Math.random() * ((820 - (i * 80)) - 650)) + 650;
+            var x = (Math.random() * (550 - (350 + ((4 - i) * 50)))) + (350 + ((4 - i) * 50));
+            if(rightPlatform) {
+                x = (Math.random() * ((820 - ((4 - i) * 30)) - 650)) + 650;
             }
-
-            leftPlatform = !leftPlatform;
+            rightPlatform = !rightPlatform;
             var platform = this.platforms.create(x, y, this.arrayOfImages[i - 1]).refreshBody();
 
             this.maybeAddSacrifice(platform);

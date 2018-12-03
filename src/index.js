@@ -14,7 +14,7 @@ var config = {
             gravity: {
                 y: 2500
             },
-            debug: true
+            debug: false
         }
     },
     scene: [
