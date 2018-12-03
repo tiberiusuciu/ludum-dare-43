@@ -236,6 +236,7 @@ export default class GameScene extends Phaser.Scene {
             var min = platform.x - platform.width / 2;
             var max = platform.x + platform.width / 2;
             var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, this.arrayOfEnnemies[Math.round(Math.random() * 3)]).setScale(3);
+            ennemy.flipX = Math.random() > 0.5 ? true : false;
             ennemy.point = false;
             ennemy.active = false;
             this.ennemies.push(ennemy);
