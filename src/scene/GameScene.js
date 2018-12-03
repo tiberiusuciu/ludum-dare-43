@@ -28,7 +28,23 @@ export default class GameScene extends Phaser.Scene {
         ];
     }
 
+    init() {
+        //  Inject our CSS
+        var element = document.createElement('style');
+
+        document.head.appendChild(element);
+
+        var sheet = element.sheet;
+
+        var styles = '@font-face { font-family: "proggy"; src: url("assets/fnt_proggy/ProggyTiny.ttf") format("truetype"); }\n';
+
+        sheet.insertRule(styles, 0);
+    }
+
     preload() {
+
+        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
         this.load.image('building-bg', 'assets/structure_with_shadow.png');
         this.load.spritesheet('player', 'assets/player_strip10.png',{ frameWidth: 16, frameHeight: 24 });
         this.load.spritesheet('playerjump', 'assets/player_jump_strip2.png',{ frameWidth: 16, frameHeight: 24 });
@@ -41,6 +57,8 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('enemy_03', 'assets/enemy_03.png');
         this.load.image('enemy_04', 'assets/enemy_04.png');
         this.load.image('city', 'assets/city.png');
+        this.load.image('laser-indicator', 'assets/laser_indicator.png');
+        this.load.image('end-indicator', 'assets/end_indicator.png');
 
         this.load.audio('bg_music', 'assets/bg_music.wav', {
             instances: 1
@@ -86,6 +104,10 @@ export default class GameScene extends Phaser.Scene {
         this.speedUpEach = 120;
         this.speedCounter = 0;
         this.line = new Phaser.Geom.Line(-1000, this.lineHeight, 2000, this.lineHeight);
+
+        this.laserIndicatorSprite = this.add.sprite(600, 550, 'laser-indicator');
+        this.laserIndicatorSprite.setScrollFactor(0);
+        this.laserIndicatorSprite.setScale(2);
 
         this.lineDistance = this.add.text(1100, 550, '0m', { fontSize: '20px', fill: '#cc2900' });
         this.lineDistance.setScrollFactor(0);
@@ -149,12 +171,32 @@ export default class GameScene extends Phaser.Scene {
             this.cameras.main.shake(0);
         }
 
-        if(distanceFromLine >= 11) {
-            this.lineDistance.setText(distanceFromLine + 'm');
-            this.lineDistance.setColor(distanceFromLine < 50 ? '#cc2900' : '#FFF');
-        } else {
-            this.lineDistance.setText('');
-        }
+        var lineDistance = this.lineDistance;
+
+        WebFont.load({
+            custom: {
+                families: [ 'proggy' ]
+            },
+            active: function ()
+            {
+
+                if(distanceFromLine >= 11) {
+                    lineDistance.setText(distanceFromLine + 'm');
+                    lineDistance.setColor(distanceFromLine < 50 ? '#cc2900' : '#28ff41');
+                    lineDistance.setFontFamily('proggy')
+                    lineDistance.x = 610;
+                    lineDistance.y = 535;
+                    lineDistance.setFontSize(32);
+                } else {
+                    lineDistance.setText('JUMP!');
+                    lineDistance.setColor(distanceFromLine < 50 ? '#cc2900' : '#28ff41');
+                    lineDistance.setFontFamily('proggy')
+                    lineDistance.x = 610;
+                    lineDistance.y = 540;
+                    lineDistance.setFontSize(26);
+                }
+            }
+        });
 
         if(distanceFromLine < 0) {
             if(!this.isDying) {
@@ -258,6 +300,8 @@ export default class GameScene extends Phaser.Scene {
             this.physics.add.collider(ennemy, this.player, this.push, null, ennemy);
         }
     }
+
+
 
     push() {
         this.active = true;
