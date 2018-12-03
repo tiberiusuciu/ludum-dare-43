@@ -158,6 +158,9 @@ export default class GameScene extends Phaser.Scene {
         this.player.update(this);
 
         var hexColor = Phaser.Display.Color.Interpolate.ColorWithColor(this.spaceColor, this.skyColor, LEVEL_HEIGHT, this.player.y);
+        if(this.player.y > LEVEL_HEIGHT + 30) {
+            hexColor = this.skyColor;
+        }
         this.cameras.main.setBackgroundColor(hexColor);
 
         if(!this.cameras.main.win && this.player.y <= this.maxLine) {
@@ -186,7 +189,11 @@ export default class GameScene extends Phaser.Scene {
         }
 
         if(distanceFromLine < 5) {
-            this.cameras.main.shake(100, ((distanceFromLine - 10) * -1) * 0.01 / 200);
+            var intensity = ((distanceFromLine - 10) * -1) * 0.01 / 200;
+            if(intensity > 0.01) {
+                intensity = 0.01;
+            }
+            this.cameras.main.shake(100, intensity);
         } else {
             this.cameras.main.shake(0);
         }
