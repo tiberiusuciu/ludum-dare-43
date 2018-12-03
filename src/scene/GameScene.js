@@ -226,12 +226,12 @@ export default class GameScene extends Phaser.Scene {
                 endDistance.y = 37;
                 endDistance.setFontSize(32);
 
-                endDistance.setText("Sacrifices: " + score);
-                endDistance.setColor('#fff');
-                endDistance.setFontFamily('proggy')
-                endDistance.x = 25;
-                endDistance.y = 37;
-                endDistance.setFontSize(32);
+                sacrificeText.setText("Sacrifices: " + score);
+                sacrificeText.setColor('#fff');
+                sacrificeText.setFontFamily('proggy')
+                sacrificeText.x = 25;
+                sacrificeText.y = 37;
+                sacrificeText.setFontSize(32);
             }
         });
 
