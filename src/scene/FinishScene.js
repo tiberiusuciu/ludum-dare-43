@@ -51,7 +51,7 @@ export default class FinishScene extends Phaser.Scene {
             active: function ()
             {
                 add.text(525, 125, 'YOU WON! ', { fontFamily: 'proggy', fontSize: 64, color: '#28ff41' });
-                
+
                 add.text(370, 185, 'Unlike everyone else, you got to the top!', { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
 
                 add.text(25, 430 + pargap, 'Press <M> to muste the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
@@ -78,11 +78,11 @@ export default class FinishScene extends Phaser.Scene {
             }
         }
 
-        if (this.keyEnter.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
             this.scene.start('TitleScene');
         }
         
-        if (this.keySpace.isDown) {
+        if (Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.scene.start('GameScene');
         }
     }
