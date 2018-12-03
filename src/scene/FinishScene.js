@@ -30,7 +30,7 @@ export default class FinishScene extends Phaser.Scene {
     create() {
         this.city = this.add.tileSprite(600, 300, 1200, 600, 'city');
         this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
-        this.cameras.main.setBackgroundColor("rgb(77, 195, 255)");
+        this.cameras.main.setBackgroundColor("rgb(24, 152, 217)");
 
         var rect = new Phaser.Geom.Rectangle(0, 0, 1200, 600);
 

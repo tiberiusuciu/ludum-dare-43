@@ -93,7 +93,7 @@ export default class GameScene extends Phaser.Scene {
         this.sacrifices = [];
         this.generatePlatforms();
 
-        this.skyColor = new Phaser.Display.Color(77, 195, 255);
+        this.skyColor = new Phaser.Display.Color(24, 152, 217);
         this.spaceColor = new Phaser.Display.Color(0, 31, 49);
 
         this.createKeyboard();
