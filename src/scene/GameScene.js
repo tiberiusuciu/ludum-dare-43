@@ -235,7 +235,7 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.player.update(this);
 
-        if(this.player.y > LEVEL_HEIGHT + 500 && !this.cameras.main.losing) {
+        if(this.player.y > LEVEL_HEIGHT && !this.cameras.main.losing) {
             this.cameras.main.win = false;
             this.cameras.main.losing = true;
             this.timer.paused = true;
