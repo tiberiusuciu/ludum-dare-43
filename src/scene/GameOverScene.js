@@ -62,7 +62,7 @@ export default class GameOverScene extends Phaser.Scene {
 
 
 
-                add.text(25, 430 + pargap, 'Press <M> to muste the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });                
+                add.text(25, 430 + pargap, 'Press <M> to mute the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });                
                 add.text(25, 450 + pargap, 'Press <space> to go back to the title screen!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
                 add.text(25, 470 + pargap, 'Press <enter> to play again!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
 

@@ -98,7 +98,7 @@ export default class Tutorial1Scene extends Phaser.Scene {
                 add.text(25, 320 + pargap, 'It eliminates everyone that goes under it.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 350 + pargap, 'When scanning someone, the laser takes some time to process the individual.', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 
-                add.text(25, 430 + pargap, 'Press <M> to muste the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
+                add.text(25, 430 + pargap, 'Press <M> to mute the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
                 add.text(25, 450 + pargap, 'Press <space> to start!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
                 add.text(25, 470 + pargap, 'Press <enter> to skip the tutorials!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
 

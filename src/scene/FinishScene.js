@@ -58,7 +58,7 @@ export default class FinishScene extends Phaser.Scene {
 
                 add.text(650, 500, 'You sacrificed ' + (points == 0 ? "nobody" : (points + (points > 1 ? " competitors" : ' competitor'))) + " along the way!", { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
 
-                add.text(25, 430 + pargap, 'Press <M> to muste the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
+                add.text(25, 430 + pargap, 'Press <M> to mute the music', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
                 add.text(25, 450 + pargap, 'Press <space> to go back to the title screen!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
                 add.text(25, 470 + pargap, 'Press <enter> to play again!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
 
