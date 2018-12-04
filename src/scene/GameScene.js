@@ -390,7 +390,7 @@ export default class GameScene extends Phaser.Scene {
 
     generatePlatforms() {
         this.platforms = this.physics.add.staticGroup();
-        this.floor = this.platforms.create(600, LEVEL_HEIGHT, 'bg_wall').setScale(6, 4).refreshBody();
+        this.floor = this.platforms.create(600, LEVEL_HEIGHT - 100, 'bg_wall').setScale(6, 4).refreshBody();
 
         var rightPlatform = true;
         var platform;
