@@ -24,7 +24,33 @@ export default class GameScene extends Phaser.Scene {
             'enemy_01',
             'enemy_02',
             'enemy_03',
-            'enemy_04'
+            'enemy_04',
+            'enemy_05',
+            'enemy_06',
+            'enemy_07',
+            'enemy_08',
+            'enemy_09',
+            'enemy_10',
+            'enemy_11',
+            'enemy_12',
+            'enemy_13',
+            'enemy_14',
+            'enemy_15',
+            'enemy_16',
+            'enemy_17',
+            'enemy_18',
+            'enemy_19',
+            'enemy_20',
+            'enemy_21',
+            'enemy_22',
+            'enemy_23',
+            'enemy_24',
+            'enemy_25',
+            'enemy_26',
+            'enemy_27',
+            'enemy_28',
+            'enemy_29',
+            'enemy_30',
         ];
     }
 
@@ -56,6 +82,32 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('enemy_02', 'assets/enemy_02.png');
         this.load.image('enemy_03', 'assets/enemy_03.png');
         this.load.image('enemy_04', 'assets/enemy_04.png');
+        this.load.image('enemy_05', 'assets/enemy_05.png');
+        this.load.image('enemy_06', 'assets/enemy_06.png');
+        this.load.image('enemy_07', 'assets/enemy_07.png');
+        this.load.image('enemy_08', 'assets/enemy_08.png');
+        this.load.image('enemy_09', 'assets/enemy_09.png');
+        this.load.image('enemy_10', 'assets/enemy_10.png');
+        this.load.image('enemy_11', 'assets/enemy_11.png');
+        this.load.image('enemy_12', 'assets/enemy_12.png');
+        this.load.image('enemy_13', 'assets/enemy_13.png');
+        this.load.image('enemy_14', 'assets/enemy_14.png');
+        this.load.image('enemy_15', 'assets/enemy_15.png');
+        this.load.image('enemy_16', 'assets/enemy_16.png');
+        this.load.image('enemy_17', 'assets/enemy_17.png');
+        this.load.image('enemy_18', 'assets/enemy_18.png');
+        this.load.image('enemy_19', 'assets/enemy_19.png');
+        this.load.image('enemy_20', 'assets/enemy_20.png');
+        this.load.image('enemy_21', 'assets/enemy_21.png');
+        this.load.image('enemy_22', 'assets/enemy_22.png');
+        this.load.image('enemy_23', 'assets/enemy_23.png');
+        this.load.image('enemy_24', 'assets/enemy_24.png');
+        this.load.image('enemy_25', 'assets/enemy_25.png');
+        this.load.image('enemy_26', 'assets/enemy_26.png');
+        this.load.image('enemy_27', 'assets/enemy_27.png');
+        this.load.image('enemy_28', 'assets/enemy_28.png');
+        this.load.image('enemy_29', 'assets/enemy_29.png');
+        this.load.image('enemy_30', 'assets/enemy_30.png');
         this.load.image('city', 'assets/city.png');
         this.load.image('laser-indicator', 'assets/laser_indicator.png');
         this.load.image('end-indicator', 'assets/end_indicator.png');
@@ -361,7 +413,7 @@ export default class GameScene extends Phaser.Scene {
         if(Math.random() < platform.y * A + 1) {
             var min = platform.x - platform.width / 2;
             var max = platform.x + platform.width / 2;
-            var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, this.arrayOfEnnemies[Math.round(Math.random() * 3)]).setScale(3);
+            var ennemy = this.physics.add.sprite((Math.random() * (max - min)) + min, platform.y - MIN_SPACE, this.arrayOfEnnemies[Math.round(Math.random() * this.arrayOfEnnemies.length - 1)]).setScale(3);
             ennemy.flipX = Math.random() > 0.5 ? true : false;
             ennemy.point = false;
             ennemy.active = false;
