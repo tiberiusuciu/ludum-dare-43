@@ -235,6 +235,13 @@ export default class GameScene extends Phaser.Scene {
     update() {
         this.player.update(this);
 
+        if(this.player.y > LEVEL_HEIGHT + 500 && !this.cameras.main.losing) {
+            this.cameras.main.win = false;
+            this.cameras.main.losing = true;
+            this.timer.paused = true;
+            this.cameras.main.fadeOut(500);
+        }
+
         var hexColor = Phaser.Display.Color.Interpolate.ColorWithColor(this.spaceColor, this.skyColor, LEVEL_HEIGHT, this.player.y);
         if(this.player.y > LEVEL_HEIGHT + 30) {
             hexColor = this.skyColor;
