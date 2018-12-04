@@ -58,9 +58,9 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
         if(!this.game.bgmusic) {
 
-            this.game.song = this.sound.add('bg_music', {loop: true, volume: 0.2});
-            this.game.song.play();
-            this.game.bgmusic = true;
+            // this.game.song = this.sound.add('bg_music', {loop: true, volume: 0.2});
+            // this.game.song.play();
+            // this.game.bgmusic = true;
         }
 
         var rect = new Phaser.Geom.Rectangle(0, 0, 1200, 600);
@@ -86,9 +86,10 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
 
                 add.text(25, 95, 'Tiberiusuciu and Guillaume-baril Presents:', { fontFamily: 'proggy', fontSize: 32, color: '#FFF' });
-                add.text(25, 130, 'Sacrifice', { fontFamily: 'proggy', fontSize: 40, color: '#ec3182' });
-                add.text(162, 130, 'Royale', { fontFamily: 'proggy', fontSize: 40, color: '#42f4c8' });
-
+                add.text(25, 130, 'King', { fontFamily: 'proggy', fontSize: 40, color: '#ec3182' });
+                add.text(87, 130, 'Of', { fontFamily: 'proggy', fontSize: 40, color: '#42f4c8' });
+                add.text(117, 130, 'The', { fontFamily: 'proggy', fontSize: 40, color: '#42f4c8' });
+                add.text(162, 130, 'Building', { fontFamily: 'proggy', fontSize: 40, color: '#42f4c8' });
 
                 add.text(25, 170 + pargap, 'Welcome to our Ludum Dare 43 entry!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
                 add.text(25, 200 + pargap, 'The theme is "Sacrifices Must Be Made" so I present you our game!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
