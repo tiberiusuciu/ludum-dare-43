@@ -127,6 +127,9 @@ export default class GameScene extends Phaser.Scene {
         this.load.audio('bg_music', 'assets/bg_music.wav', {
             instances: 1
         });
+        this.load.audio('hit', 'assets/hit.wav', {
+            instances: 1
+        });
         this.load.audio('playerJumpSoundtrue', 'assets/jump.wav', {
             instances: 1
         });
@@ -426,6 +429,12 @@ export default class GameScene extends Phaser.Scene {
     }
 
     push() {
+        console.log(this);
+        if(!this.active) {
+            this.scene.sound.play('hit', {
+                volume: 0.2
+            });
+        }
         this.active = true;
     }
 }
