@@ -433,7 +433,7 @@ export default class GameScene extends Phaser.Scene {
             this.scene.sound.play('hit', {
                 volume: 0.2
             });
-            var force = (Math.random() * (1500 - 600)) + 600;
+            var force = (Math.random() * (1000 - 600)) + 600;
             if(this.x < this.scene.player.x) {
                 this.setVelocityX(-force);
                 this.setVelocityY(-force);
