@@ -193,7 +193,7 @@ export default class GameScene extends Phaser.Scene {
         this.endIndicatorSprite = this.add.sprite(600, 50, 'end-indicator');
         this.endIndicatorSprite.setScrollFactor(0);
         this.endIndicatorSprite.setScale(2);
-        this.endIndicatorSprite.setAlpha(.75);
+        this.endIndicatorSprite.setAlpha(.5);
 
         //this.sacrificeSprite = this.add.sprite(20, 25, 'sacrifice-indicator');
         //this.sacrificeSprite.setScrollFactor(0);
@@ -255,6 +255,7 @@ export default class GameScene extends Phaser.Scene {
 
         var distanceFromLine = parseInt((this.line.y1 - this.player.y - this.player.height / 2) / 28);
         var distanceFromEnd = parseInt((this.player.y - this.player.height / 2) / 28);
+        this.game.distanceFromEnd = distanceFromEnd;
         if(this.lineHeight > this.maxLine) {
             if(this.waitLinePoint <= 0) {
                 this.lineHeight += this.lineGap;
