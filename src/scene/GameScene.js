@@ -108,6 +108,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('enemy_28', 'assets/enemy_28.png');
         this.load.image('enemy_29', 'assets/enemy_29.png');
         this.load.image('enemy_30', 'assets/enemy_30.png');
+        this.load.image('bg_wall', 'assets/bg_wall.png');
         this.load.image('city', 'assets/city.png');
         this.load.image('laser-indicator', 'assets/laser_indicator.png');
         this.load.image('end-indicator', 'assets/end_indicator.png');
@@ -389,7 +390,7 @@ export default class GameScene extends Phaser.Scene {
 
     generatePlatforms() {
         this.platforms = this.physics.add.staticGroup();
-        this.floor = this.platforms.create(600, LEVEL_HEIGHT - MIN_SPACE, 'metal-platform').setScale(6, 4).refreshBody();
+        this.floor = this.platforms.create(600, LEVEL_HEIGHT, 'bg_wall').setScale(6, 4).refreshBody();
 
         var rightPlatform = true;
         var platform;
