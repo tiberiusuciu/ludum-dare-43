@@ -102,26 +102,26 @@ export default class Tutorial1Scene extends Phaser.Scene {
                 add.text(25, 450 + pargap, 'Press <space> to start!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
                 add.text(25, 470 + pargap, 'Press <enter> to skip the tutorials!', { fontFamily: 'proggy', fontSize: 20, color: '#f0f' });
 
-                add.text(750, 150, 'Controls', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(750, 160, '____________________________________', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 150, 'Controls', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 160, '____________________________________', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
 
 
-                add.text(750, 200, '- Move with WASD or Arrows', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(750, 230, '- Jump with space (or W/Up arrow)', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 200, '- Move with WASD or Arrows', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 230, '- Jump with space (or W/Up arrow)', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
 
 
-                add.text(750, 290, 'How to play', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(750, 300, '____________________________________', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 290, 'How to play', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 300, '____________________________________', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
 
-                add.text(750, 340, '- Climb to the top as fast as you can!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(750, 370, '- Do not let the laser go above you!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(750, 400, '- Push your competition off the ledges', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
-                add.text(764, 420,  'to slow down the laser!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 340, '- Climb to the top as fast as you can!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 370, '- Do not let the laser go above you!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(800, 400, '- Push your competition off the ledges', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
+                add.text(814, 420,  'to slow down the laser!', { fontFamily: 'proggy', fontSize: 20, color: '#fff' });
 
 
-                add.text(890, 500,  '*No one is hurt when thrown off the building', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
-                add.text(890, 520,  'strong safety matts are at the bottom to catch them', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
-                add.text(890, 540,  '(We promise!)', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
+                add.text(850, 500,  '*No one is hurt when thrown off the building.', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
+                add.text(855, 520,  'Strong safety matts are at the bottom to catch them', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
+                add.text(855, 540,  '(We promise!)', { fontFamily: 'proggy', fontSize: 15, color: '#AAA' });
             }
         });
 
