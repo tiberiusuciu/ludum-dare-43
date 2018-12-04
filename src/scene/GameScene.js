@@ -60,6 +60,7 @@ export default class GameScene extends Phaser.Scene {
         this.load.image('laser-indicator', 'assets/laser_indicator.png');
         this.load.image('end-indicator', 'assets/end_indicator.png');
         this.load.image('sacrifice-indicator', 'assets/sacrifice_indicator.png');
+        this.load.image('star', 'assets/star.png');
 
         this.load.audio('countdown', 'assets/countdown.wav', {
             instances: 1
@@ -83,10 +84,23 @@ export default class GameScene extends Phaser.Scene {
     
     create() {
         this.cameras.main.win = false;
+
+        Phaser.Actions.RandomRectangle(
+            this.add.group({ key: 'star', frameQuantity: 800 }).getChildren(), 
+            new Phaser.Geom.Rectangle(-100, -250, 1500, LEVEL_HEIGHT / 5));
+
+        Phaser.Actions.RandomRectangle(
+            this.add.group({ key: 'star', frameQuantity: 500 }).getChildren(), 
+            new Phaser.Geom.Rectangle(-100, LEVEL_HEIGHT / 5 - LEVEL_HEIGHT / 8, 1500, LEVEL_HEIGHT / 4));
+
+        Phaser.Actions.RandomRectangle(
+            this.add.group({ key: 'star', frameQuantity: 200 }).getChildren(), 
+            new Phaser.Geom.Rectangle(-100, LEVEL_HEIGHT / 4 - LEVEL_HEIGHT / 8, 1500, LEVEL_HEIGHT / 3.5));
+
         this.city = this.add.tileSprite(600, 300, 1200, 600, 'city');
         this.city.setScrollFactor(0);
-        this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
 
+        this.scrollingBg = this.add.tileSprite(600, LEVEL_HEIGHT / 2, 600, LEVEL_HEIGHT + 400, 'building-bg');
 
         this.game.ennemies = [];
         this.game.points = 0;
@@ -180,7 +194,7 @@ export default class GameScene extends Phaser.Scene {
         var distanceFromEnd = parseInt((this.player.y - this.player.height / 2) / 28);
         if(this.lineHeight > this.maxLine) {
             if(this.waitLinePoint <= 0) {
-                //this.lineHeight += this.lineGap;
+                this.lineHeight += this.lineGap;
                 this.line.setTo(-1000, this.lineHeight, 2000, this.lineHeight);
             } else {
                 --this.waitLinePoint;
@@ -357,8 +371,6 @@ export default class GameScene extends Phaser.Scene {
             this.physics.add.collider(ennemy, this.player, this.push, null, ennemy);
         }
     }
-
-
 
     push() {
         this.active = true;

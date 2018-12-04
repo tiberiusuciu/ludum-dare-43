@@ -53,6 +53,13 @@ export default class Tutorial1Scene extends Phaser.Scene {
         this.load.image('enemy_02', 'assets/enemy_02.png');
         this.load.image('enemy_03', 'assets/enemy_03.png');
         this.load.image('enemy_04', 'assets/enemy_04.png');
+
+        this.load.audio('walktrue', 'assets/walk2.wav', {
+            instances: 1
+        });
+        this.load.audio('walkfalse', 'assets/walk.wav', {
+            instances: 1
+        });
     }
     
     create() {
@@ -149,6 +156,8 @@ export default class Tutorial1Scene extends Phaser.Scene {
 
     push() {
         this.active = true;
+        this.setVelocityX(1000);
+        this.setVelocityY(-1000);
     }
 
     update() {

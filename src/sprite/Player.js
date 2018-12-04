@@ -11,7 +11,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.setBounce(0.2);
         this.body.setCollideWorldBounds(false);
         this.jumpVelocity = useLerp ? -1000 : -750;
-        //this.body.setGravityY(1000);
 
         scene.anims.create({
             key: 'move',
@@ -67,7 +66,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         if((left || right) && (this.body.touching.down || this.body.blocked.down) && this.walkCounter > 12) {
             this.walkCounter = 0;
-            scene.sound.play('walk' + this.loudWalk, {volume: 1});
+            scene.sound.play('walk' + this.loudWalk, {volume: 0.3});
             this.loudWalk = !this.loudWalk;
         }
 
